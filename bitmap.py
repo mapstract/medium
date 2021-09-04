@@ -291,21 +291,26 @@ if __name__ == "__main__":
 
     evals_list = [0] + list(evals)
 
-    fig = plt.figure(figsize=(6, 6))
-    ax = fig.add_subplot(111)
+    print([round(x, 3) for x in evals_list])
 
-    plt.xlim(-0.5, ne + 0.5)
+    do_plot = False
+    if do_plot:
 
-    if scale_method == "none":
-        plt.ylim(-0.5, ne + 0.5)
-    elif scale_method == "average degree":
-        plt.ylim(-0.05, (mean_degree + 1) * 1.05)
-    elif scale_method == "maximum eigenvalue":
-        plt.ylim(0, np.max(evals_list))
+        fig = plt.figure(figsize=(6, 6))
+        ax = fig.add_subplot(111)
 
-    plt.grid()
+        plt.xlim(-0.5, ne + 0.5)
 
-    plt.scatter(range(1,(ne+1)), evals_list)
-    plt.show()
+        if scale_method == "none":
+            plt.ylim(-0.5, ne + 0.5)
+        elif scale_method == "average degree":
+            plt.ylim(-0.05, (mean_degree + 1) * 1.05)
+        elif scale_method == "maximum eigenvalue":
+            plt.ylim(0, np.max(evals_list))
+
+        plt.grid()
+
+        plt.scatter(range(1,(ne+1)), evals_list)
+        plt.show()
 
     print("--done--")
