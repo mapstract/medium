@@ -245,11 +245,8 @@ def print_statistics(G, short=True):
 
 if __name__ == "__main__":
 
-    # 192.168.1.xxx
-    # ssh -i /Users/brianbunker/Dropbox/aws/pem/brian.pem  ec2-user@ec2-18-217-114-64.us-east-2.compute.amazonaws.com
-
-    m = 3
-    n = 4
+    m = 2
+    n = 2
 
     short = False
 
@@ -286,10 +283,12 @@ if __name__ == "__main__":
 
     k = ne-1
     # spectrum = np.linalg.eig(laplacian)
-    evals, evecs = sp.sparse.linalg.eigsh(laplacian, k=k)
+    evals = sp.sparse.linalg.eigs(laplacian, k=k, return_eigenvectors=False)
     # v = evecs.flatten().real
 
-    evals_list = [0] + list(evals)
+    evals = sorted(evals.real)
+
+    evals_list = list(evals)
 
     print([round(x, 3) for x in evals_list])
 
