@@ -12,6 +12,8 @@ import scipy as sp
 # git clone https://github.com/mapstract/medium.git
 # PAT: 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
 # ssh -i /Users/brianbunker/Dropbox/aws/pem/brian.pem  ec2-user@ec2-18-217-114-64.us-east-2.compute.amazonaws.com
+# ssh -i /Users/brianbunker/Dropbox/aws/pem/brian.pem  ubuntu@ec2-18-221-235-146.us-east-2.compute.amazonaws.com
+# c6g.8xlarge
 # to-do:
 # ( ) add non-square patches
 
