@@ -1,5 +1,7 @@
 import sys
 
+sys.path.insert(1, '/Users/brianbunker/networkx_2.6.3/')
+
 import math
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -12,10 +14,11 @@ import scipy as sp
 # git clone https://github.com/mapstract/medium.git
 # PAT: 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
 # ssh -i /Users/brianbunker/Dropbox/aws/pem/brian.pem  ec2-user@ec2-18-217-114-64.us-east-2.compute.amazonaws.com
-# ssh -i /Users/brianbunker/Dropbox/aws/pem/brian.pem  ubuntu@ec2-18-221-235-146.us-east-2.compute.amazonaws.com
+# ssh -i /Users/brianbunker/Dropbox/aws/pem/brian.pem  ubuntu@
 # c6g.8xlarge
 # to-do:
 # ( ) add non-square patches
+# ( ) patches_1d
 
 def invb(b, mn):
     return(2**mn - 1 - b)
@@ -135,6 +138,23 @@ def get_patch_bitmaps(m, n):
 
     return result
 
+def get_patch_1d_bitmaps(m, n=1):
+
+    all_coords = [(i, 0) for i in range(m)]
+
+    s = set()
+
+    cnt = 0
+    for k in range(1, m + 1):
+        for c in all_coords:
+            B_c = get_patch_bitmap(m, 1, c, k, 1)
+            s.add(B_c.i_value)
+
+    result = sorted(list(s))
+
+    return result
+
+
 
 def get_line_bitmap(m, n, c1, c2):
 
@@ -229,6 +249,10 @@ def get_lines_graph(m, n):
 def get_patches_graph(m, n):
     return get_graph(m, n, get_patch_bitmaps)
 
+def get_patches_1d_graph(m):
+    return get_graph(m, 1, get_patch_1d_bitmaps)
+
+
 def print_statistics(G, short=True):
 
     print("Nodes: " + str(nx.number_of_nodes(G)))
@@ -245,7 +269,29 @@ def print_statistics(G, short=True):
 
 if __name__ == "__main__":
 
-    m = 2
+    # m = 11
+    # foo = get_patch_1d_bitmaps(m)
+
+    # expected_length = (m - 1) * m + 1
+
+    # print("len(foo) = " + str(len(foo)) + " | expected = " + str(expected_length))
+
+    # patches maximum eigenvalue
+    # 1   
+    # 2  
+    # 3  
+    # 4  
+    # 5  
+    # 6  
+    # 7  
+    # 8  
+    # 9  
+    # 10 [0.482232, 1.171977, 1.295349]
+    # 11 [0.480888, 1.167144, 1.293266]
+    # 12 [0.474396, 1.166785, 1.291815]
+    # 13 [0.46179,  1.16779,  1.290785]
+
+    m = 3
     n = 2
 
     short = False
@@ -254,7 +300,7 @@ if __name__ == "__main__":
     scale_method = "maximum eigenvalue"
 
     undirected_choices = ("complete")
-    directed_choices = ("bitwise", "lines", "patches")
+    directed_choices = ("bitwise", "lines", "patches", "patches_1d")
 
     if graph_choice == "complete":
         G = get_complete_graph(m, n)
@@ -264,6 +310,8 @@ if __name__ == "__main__":
         G = get_lines_graph(m, n)
     elif graph_choice == "patches":
         G = get_patches_graph(m, n)
+    elif graph_choice == "patches_1d":
+        G = get_patches_1d_graph(m)
     else:
         print("Unknown graph type.")
         sys.exit(0)
@@ -290,9 +338,12 @@ if __name__ == "__main__":
 
     evals_list = list(evals)
 
-    print([round(x, 3) for x in evals_list])
+    if len(evals_list) < 50:
+        print([round(x, 6) for x in evals_list])
+    else: 
+        print(str([round(x, 6) for x in evals_list[:10]]) + " ... " + str([round(x, 6) for x in evals_list[-10:]]))
 
-    do_plot = False
+    do_plot = True
     if do_plot:
 
         fig = plt.figure(figsize=(6, 6))
