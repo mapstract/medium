@@ -4,7 +4,7 @@ import math
 import numpy as np
 from numpy.ma.core import is_string_or_list_of_strings
 
-import utilities
+import bitmap_utilities as bu
 
 # Credentials:
 
@@ -47,7 +47,17 @@ class BitMap(object):
 
     def __str__(self):
         return str(self.array())
- 
+
+    def check_dims(self, x):
+
+        if x.m != self.m or x.n != self.n:
+            print("Dimensions do not match.")
+            sys.exit(1)
+
+    def copy(self):
+
+        return BitMap(self.m, self.n, self.i_value)
+
     # Representation functions
 
     def bin(self):
@@ -68,4 +78,8 @@ class BitMap(object):
 
     def apply(self, B, val):
         self.i_value = apply_bitmap(B.i_value, self.i_value, self.mn, val)
+
+
+
+
 

@@ -8,8 +8,8 @@ import scipy as sp
 import bitmap_utilities as bu
 import utilities as u
 
-# sys.path.insert(1, '/Users/brianbunker/networkx_2.6.3/')
-# import networkx as nx
+sys.path.insert(1, '/Users/brianbunker/networkx_2.6.3/')
+import networkx as nx
 
 if __name__ == "__main__":
 
@@ -74,8 +74,8 @@ if __name__ == "__main__":
     do_plot = True
     if do_plot:
 
-        fig = plt.figure(figsize=(6, 6))
-        ax = fig.add_subplot(111)
+        fig = plt.figure(figsize=(9, 3))
+        ax = fig.add_subplot(131)
 
         plt.xlim(-0.5, ne + 0.5)
 

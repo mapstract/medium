@@ -1,7 +1,6 @@
 import sys
 
 sys.path.insert(1, '/Users/brianbunker/networkx_2.6.3/')
-import math
 import networkx as nx
 
 from bitmap import BitMap
