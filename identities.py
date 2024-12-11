@@ -138,7 +138,7 @@ def sum_4(n, check=False):
 
 if __name__ == "__main__":
 
-    n_max = 30
+    n_max = 20
     m_max = 3
 
     for n in range(n_max):
